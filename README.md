@@ -1,4 +1,4 @@
-# power-outage-model
+# Power Outage Cause Classifier
 *Authors: Garvey Li, Penny King*
 
 ## Introduction

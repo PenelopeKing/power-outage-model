@@ -37,7 +37,8 @@ Our initial baseline model we created was a Decision Tree Classifier with the qu
 * `NERC.REGION` (nominal)
 * `CLIMATE.REGION` (nominal)
 All qualtitative variables we One Hot Encoded before putting into our model.
-#### (!) check OneHotEncoding after TA responds!
+
+*(!) check OneHotEncoding after TA responds!*
 
 and the quantitative data we used was:
 * `OUTAGE.DURATION`
@@ -57,7 +58,7 @@ The hyperparameters we got from GridSearchCV (grid search cross validation with 
 * `min_samples_split`: 200
 
 
-#### (!) MAY NEED TO ADD MORE! project says many ppl lose points here
+*(!) MAY NEED TO ADD MORE! project says many ppl lose points here*
 The performance of our model on our test data was an F1-score of 0.5875980924470244. This is not very high, as values closer to 1.0 mean a better F1-score. Having an F1-score over 0.5 and closer to 0.7 would be a better F1-score metric. This lower F1-score means that our model does not have a high precision or recall rate. This means that our model is not accurate in predicting true positive predictions and is not generally specific in its predictions. 
 
 
@@ -75,7 +76,8 @@ Qualitiatve variables:
 * `CLIMATE.REGION` (nominal)
 * `SEASON` (nominal)
 All qualtitative variables we One Hot Encoded before putting into our model.
-#### (!) check OneHotEncoding after TA responds!
+
+*(!) check OneHotEncoding after TA responds!*
 
 Quantitative data we used was:
 * `OUTAGE.DURATION`

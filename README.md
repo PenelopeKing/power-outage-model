@@ -1,20 +1,61 @@
 # power-outage-model
-Garvey Li, Penny King DSC80 Final Project
+*Authors: Garvey Li, Penny King*
 
-## Problem Identification
+## Introduction
 
-* Prediction problem: Multiclass classification for predicting `CAUSE.CATEGORY` 
-* Still have to decide metric
+Our project focuses on predicting the cause of a power outage. Sometimes power outages may occur due to unexpected reasons with the cause for it being unclear. Our project aims to build a classiifer using readily avaialble information you can get shortly after a power outage. This classification model may be useful to possibly figure out why a specific area is getting power outages when they are unaware of why they are happening and to mitigate that issue and prevent future outages from happening in the future.
 
-*Clearly state your prediction problem and type (classification or regression). If you are building a classifier, make sure to state whether you are performing binary classification or multiclass classification. Report the response variable (i.e. the variable you are predicting) and why you chose it, the metric you are using to evaluate your model and why you chose it over other suitable metrics (e.g. accuracy vs. F1-score).*
+We decided to tackle this with a multiclass classification model, specifically a Decision Tree Classifier. We will be predicting `CAUSE.CATEGORY`, which corresponds to the reason why the power outage occured. We chose a Decision Tree Classifier specifically because it performs well with multiclass classification problems as well as high dimension data. Since this dataset is very robust with many features, we decidied to go with this model as our focus.
 
-*Note: Make sure to justify what information you would know at the “time of prediction” and to only train your model using those features. For instance, if we wanted to predict your final exam grade, we couldn’t use your Project 5 grade, because Project 5 is only due after the final exam!*
+For our evaluation metric we used F1-score because our respones variable (`CAUSE.CATEGORY`) is very imbalanced. Due to this imbalance in our data we decided that F1-score was a better choice over other metric such as accuracy because of how it balances precision and recall.
+
+We trained out model only using these following columns:
+* `U.S._STATE`
+* `CLIMATE.CATEGORY`
+* `MONTH`
+* `SEASON`
+* `OUTAGE.DURATION`
+* `POPDEN_URBAN`
+* `POPPCT_URBAN`
+* `POPPCT_UC`
+* `AREAPCT_URBAN`
+* `AREAPCT_UC`
+* `PCT_LAND`
+* `PCT_WATER_TOT`
+* `PCT_WATER_INLAND`
+* `NERC.REGION`
+* `CLIMATE.REGION`
+
+The reason why we chose to predict using these features in particular were because these would likely be the known information we have at the "time of prediction" as these features are data that you can easily access post-power outage if you did not know the cause. For example, location specific data such as the state, climate category, the population metrics (urban and rural population, etc) are readily available even before the power outage arises. And once the power outage ends, the duration of the outage is readily accessible information.
 
 ## Baseline Model
 
-*Describe your model and state the features in your model, including how many are quantitative, ordinal, and nominal, and how you performed any necessary encodings. Report the performance of your model and whether or not you believe your current model is “good” and why.*
+Our initial baseline model we created was a Decision Tree Classifier with the qualitiatve variables of:
+* `U.S._STATE` (nominal)
+* `CLIMATE.CATEGORY` (nominal)
+* `MONTH` (ordinal)
+* `NERC.REGION` (nominal)
+* `CLIMATE.REGION` (nominal)
+All qualtitative variables we One Hot Encoded before putting into our model.
+#### (!) check OneHotEncoding after TA responds!
 
-*Tip: Make sure to hit all of the points above: many projects in the past have lost points for not doing so.*
+and the quantitative data we used was:
+* `OUTAGE.DURATION`
+* `POPDEN_URBAN`
+* `POPPCT_URBAN`
+* `POPPCT_UC`
+* `AREAPCT_URBAN`
+* `AREAPCT_UC`
+* `PCT_LAND`
+* `PCT_WATER_TOT`
+* `PCT_WATER_INLAND`
+
+#### (!) add hyperparams after final run of notebook and submission!
+
+
+#### (!) MAY NEED TO ADD MORE! project says many ppl lose points here
+The performance of our model on our test data was an F1-score of 0.5875980924470244. This is not very high, as values closer to 1.0 mean a better F1-score. Having an F1-score over 0.5 and closer to 0.7 would be a better F1-score metric. This lower F1-score means that our model does not have a high precision or recall rate. This means that our model is not accurate in predicting true positive predictions and is not generally specific in its predictions. 
+
 
 ## Final Model
 

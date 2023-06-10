@@ -50,7 +50,11 @@ and the quantitative data we used was:
 * `PCT_WATER_TOT`
 * `PCT_WATER_INLAND`
 
-#### (!) add hyperparams after final run of notebook and submission!
+
+The hyperparameters we got from GridSearchCV (grid search cross validation with 5 folds) for our baseline Decision Tree Classifier was:
+* `criterion`: gini
+* `max_depth`: 3
+* `min_samples_split`: 200
 
 
 #### (!) MAY NEED TO ADD MORE! project says many ppl lose points here
@@ -61,7 +65,44 @@ The performance of our model on our test data was an F1-score of 0.5875980924470
 
 *State the features you added and why they are good for the data and prediction task. Note that you can’t simply state “these features improved my accuracy”, since you’d need to choose these features and fit a model before noticing that – instead, talk about why you believe these features improved your model’s performance from the perspective of the data generating process.*
 
-*Describe the modeling algorithm you chose, the hyperparameters that ended up performing the best, and the method you used to select hyperparameters and your overall model. Describe how your Final Model’s performance is an improvement over your Baseline Model’s performance.*
+In our final model the features we included were:
+
+Qualitiatve variables:
+* `U.S._STATE` (nominal)
+* `CLIMATE.CATEGORY` (nominal)
+* `MONTH` (ordinal)
+* `NERC.REGION` (nominal)
+* `CLIMATE.REGION` (nominal)
+* `SEASON` (nominal)
+All qualtitative variables we One Hot Encoded before putting into our model.
+#### (!) check OneHotEncoding after TA responds!
+
+Quantitative data we used was:
+* `OUTAGE.DURATION`
+* `POPDEN_URBAN`
+* `POPPCT_URBAN`
+* `POPPCT_UC`
+* `AREAPCT_URBAN`
+* `AREAPCT_UC`
+* `PCT_LAND`
+* `PCT_WATER_TOT`
+* `PCT_WATER_INLAND`
+
+
+We feature engineered a new column `SEASON` which we got from the `MONTH` column in our DataFrame.
+We also created quantiles for all our quantitaive data. The reason why we decided to do these instances of feature engineering was to group our data. We noticed that our data in many of these columns were very spread out and unique, which may be causing issues for our decision tree model when it comes to classifying specific classes.
+
+Creating quantiles helps with giving data class at the extremes and the middle the same number ovalues. this qual representation may be beneficial for the model to learn the patterns associated with the class and can help give better ways for the decision tree to split.
+
+Grouping by seasons also helps with splitting within the decision tree classifier.
+
+We decided to find the optimal hyperparameters for our model using 5-fold grid search cross validation from `sklearn` package within our modeling Pipeline.
+The hyperparameters we got from GridSearchCV (grid search cross validation with 5 folds) for our final Decision Tree Classifier was:
+* `criterion`: gini
+* `max_depth`: 7
+* `min_samples_split`: 50
+
+This new model with new hyperparameters and features resuled in a F1-score performance of 0.6372507104664724. This is a significant improvement from our baseline model, which was 0.5875980924470244. This means that our model improved in its precision and recall (specificity and sensetivity), but not but too much of significant amount to be truly reliable just yet. 
 
 *Optional: Include a visualization that describes your model’s performance, e.g. a confusion matrix, if applicable.*
 

@@ -66,8 +66,27 @@ The hyperparameters we got from GridSearchCV (grid search cross validation with 
 * `min_samples_split`: 200
 
 
+<div class="table-wrapper" markdown="block">
+
+
+| Predicted                     |   fuel supply emergency |   intentional attack |   severe weather |
+|:------------------------------|------------------------:|---------------------:|-----------------:|
+ **Actual**                                                                                        |
+| fuel supply emergency         |                       2 |                    1 |               10 |
+| intentional attack            |                       0 |                   59 |               37 |
+| islanding                     |                       0 |                    3 |                8 |
+| public appeal                 |                       0 |                    4 |               14 |
+| severe weather                |                       4 |                   10 |              192 |
+| system operability disruption |                       0 |                    6 |               17 |
+| equipment failure             |                       0 |                    3 |               12 |
+
+
+</div>
+
 *(!) MAY NEED TO ADD MORE! project says many ppl lose points here*
 The performance of our model on our test data was an F1-score of 0.5875980924470244. This is not very high, as values closer to 1.0 mean a better F1-score. Having an F1-score over 0.5 and closer to 0.7 would be a better F1-score metric. This lower F1-score means that our model does not have a high precision or recall rate. This means that our model is not accurate in predicting true positive predictions and is not generally specific in its predictions. 
+
+*model is not making any predictions of any other categories besides `fuel supply emergency`, `intentional attack`, and `severe weather`. Class imbalance is significant here.
 
 
 ## Final Model
@@ -112,24 +131,28 @@ The hyperparameters we got from GridSearchCV (grid search cross validation with 
 * `max_depth`: 7
 * `min_samples_split`: 50
 
-This new model with new hyperparameters and features resuled in a F1-score performance of 0.6372507104664724. This is a significant improvement from our baseline model, which was 0.5875980924470244. This means that our model improved in its precision and recall (specificity and sensetivity), but not but too much of significant amount to be truly reliable just yet. 
+This new model with new hyperparameters and features resuled in a F1-score performance of 0.6372507104664724. This is a significant improvement from our baseline model, which was 0.5875980924470244. This means that our model improved in its precision and recall (specificity and sensitivity), but not but too much of significant amount to be truly reliable just yet. 
 
 *Optional: Include a visualization that describes your model’s performance, e.g. a confusion matrix, if applicable.*
 
 <div class="table-wrapper" markdown="block">
 
 
-| Actual                        |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
-|:------------------------------|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
-| equipment failure             |                       1 |                   10 |           1 |               6 |               16 |                               8 |
+| Predicted                        |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |  equipment failure |
+|:------------------------------|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|--------------------------------:|
+|**Actual**                                                                                                      |
 | fuel supply emergency         |                       9 |                    4 |           0 |               0 |               23 |                               1 |
 | intentional attack            |                       1 |                  270 |           2 |               4 |               42 |                               3 |
 | islanding                     |                       0 |                   12 |           6 |               0 |                5 |                              12 |
 | public appeal                 |                       0 |                    6 |           1 |              21 |               21 |                               2 |
 | severe weather                |                       5 |                   32 |           2 |              13 |              485 |                              16 |
 | system operability disruption |                       1 |                   21 |           0 |               6 |               45 |                              30 |
+| equipment failure             |                       1 |                   10 |           1 |               6 |               16 |                               8 |
+
 
 </div>
+
+*Class imbalance not as significant here but still present. One category of cause not being predicted(`equipment failure`)
 
 ## Fairness Analysis
 

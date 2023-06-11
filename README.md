@@ -1,4 +1,9 @@
 <style>
+
+.table-wrapper {
+    overflow-x: scroll;
+  }
+
 </style>
 
 # Power Outage Cause Classifier
@@ -111,7 +116,20 @@ This new model with new hyperparameters and features resuled in a F1-score perfo
 
 *Optional: Include a visualization that describes your model’s performance, e.g. a confusion matrix, if applicable.*
 
-| Actual                        |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |\n|:------------------------------|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|\n| equipment failure             |                       1 |                   10 |           1 |               6 |               16 |                               8 |\n| fuel supply emergency         |                       9 |                    4 |           0 |               0 |               23 |                               1 |\n| intentional attack            |                       1 |                  270 |           2 |               4 |               42 |                               3 |\n| islanding                     |                       0 |                   12 |           6 |               0 |                5 |                              12 |\n| public appeal                 |                       0 |                    6 |           1 |              21 |               21 |                               2 |\n| severe weather                |                       5 |                   32 |           2 |              13 |              485 |                              16 |\n| system operability disruption |                       1 |                   21 |           0 |               6 |               45 |                              30 |
+<div class="table-wrapper" markdown="block">
+
+
+| Actual                        |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
+|:------------------------------|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
+| equipment failure             |                       1 |                   10 |           1 |               6 |               16 |                               8 |
+| fuel supply emergency         |                       9 |                    4 |           0 |               0 |               23 |                               1 |
+| intentional attack            |                       1 |                  270 |           2 |               4 |               42 |                               3 |
+| islanding                     |                       0 |                   12 |           6 |               0 |                5 |                              12 |
+| public appeal                 |                       0 |                    6 |           1 |              21 |               21 |                               2 |
+| severe weather                |                       5 |                   32 |           2 |              13 |              485 |                              16 |
+| system operability disruption |                       1 |                   21 |           0 |               6 |               45 |                              30 |
+
+</div>
 
 ## Fairness Analysis
 

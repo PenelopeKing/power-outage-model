@@ -2,7 +2,7 @@
 
 .table-wrapper {
     overflow-x: scroll;
-  }
+}
 
 </style>
 
@@ -11,13 +11,17 @@
 
 ## Introduction
 
-Our project focuses on predicting the cause of a power outage. Sometimes power outages may occur due to unexpected reasons with the cause for it being unclear. Our project aims to build a classiifer using readily avaialble information you can get shortly after a power outage. This classification model may be useful to possibly figure out why a specific area is getting power outages when they are unaware of why they are happening and to mitigate that issue and prevent future outages from happening in the future.
+Our project focuses on predicting the cause of a power outage. Sometimes power outages may occur due to unexpected reasons and the cause for it would be unclear. Our project aims to build a classiifer using information that is available shortly after a power outage. This classification model may be useful to possibly figure out why a specific area is getting power outages when they are unaware of why they are happening and to mitigate that issue and prevent future outages from happening in the future.
 
 We decided to tackle this with a multiclass classification model, specifically a Decision Tree Classifier. We will be predicting `CAUSE.CATEGORY`, which corresponds to the reason why the power outage occured. We chose a Decision Tree Classifier specifically because it performs well with multiclass classification problems as well as high dimension data. Since this dataset is very robust with many features, we decidied to go with this model as our focus.
 
-For our evaluation metric we used F1-score because our respones variable (`CAUSE.CATEGORY`) is very imbalanced. Due to this imbalance in our data we decided that F1-score was a better choice over other metric such as accuracy because of how it balances precision and recall.
+For our evaluation metric we used F1-score because our response variable,  `CAUSE.CATEGORY`, which contains 7 classes, has a very high class imbalance, as shown below. 
 
-We trained out model only using these following columns:
+<iframe src="html_files/y_bar.html" width=800 height=600 frameBorder=0></iframe>
+
+Due to this imbalance in our data we decided that F1-score was a better choice over other metric such as accuracy because of how it balances precision and recall.
+
+We trained out model using the following features:
 * `U.S._STATE`
 * `CLIMATE.CATEGORY`
 * `MONTH`
@@ -46,7 +50,6 @@ Our initial baseline model we created was a Decision Tree Classifier with the qu
 * `CLIMATE.REGION` (nominal)
 All qualtitative variables we One Hot Encoded before putting into our model.
 
-*(!) check OneHotEncoding after TA responds!*
 
 and the quantitative data we used was:
 * `OUTAGE.DURATION`
@@ -84,9 +87,8 @@ The hyperparameters we got from GridSearchCV (grid search cross validation with 
 </div>
 
 *(!) MAY NEED TO ADD MORE! project says many ppl lose points here*
-The performance of our model on our test data was an F1-score of 0.5875980924470244. This is not very high, as values closer to 1.0 mean a better F1-score. Having an F1-score over 0.5 and closer to 0.7 would be a better F1-score metric. This lower F1-score means that our model does not have a high precision or recall rate. This means that our model is not accurate in predicting true positive predictions and is not generally specific in its predictions. 
 
-*model is not making any predictions of any other categories besides `fuel supply emergency`, `intentional attack`, and `severe weather`. Class imbalance is significant here.
+The performance of our model on our test data was an F1-score of 0.5875980924470244. This is not very high, as values closer to 1.0 mean a better F1-score. Having an F1-score over 0.5 and closer to 0.7 would be a better F1-score metric. This lower F1-score means that our model does not have a high precision or recall rate. This means that our model is not accurate in predicting true positive predictions and is not generally specific in its predictions. In addition to this, the baseline model is not making any predictions of any other categories besides `fuel supply emergency`, `intentional attack`, and `severe weather`, meaning that only 3/7 classes are being predicted. This shows that the effects of the class imbalance present in the true data is significant here.
 
 
 ## Final Model
@@ -95,16 +97,15 @@ The performance of our model on our test data was an F1-score of 0.5875980924470
 
 In our final model the features we included were:
 
-Qualitiatve variables:
+Qualitative variables:
 * `U.S._STATE` (nominal)
 * `CLIMATE.CATEGORY` (nominal)
 * `MONTH` (ordinal)
 * `NERC.REGION` (nominal)
 * `CLIMATE.REGION` (nominal)
 * `SEASON` (nominal)
-All qualtitative variables we One Hot Encoded before putting into our model.
-
-*(!) check OneHotEncoding after TA responds!*
+  
+All qualtitative variables we One Hot Encoded before putting into our model, as before in the baseline model.
 
 Quantitative data we used was:
 * `OUTAGE.DURATION`
@@ -118,7 +119,8 @@ Quantitative data we used was:
 * `PCT_WATER_INLAND`
 
 
-We feature engineered a new column `SEASON` which we got from the `MONTH` column in our DataFrame.
+We feature engineered a new column `SEASON` which we got from the `MONTH` column in our DataFrame. We believed that there may have been some correlation between the distributions of seasons with more/less extreme weather and the distribution of outage causes for each season. For example, in the winter, there might be more strong storms and winds that can cause power outages as opposed to fall and spring, when the weather is more mild in comparison. Thus, during winter, there might be a higher probability of a power outage being caused by `severe weather` as opposed to `intentional attack`.
+
 We also created quantiles for all our quantitaive data. The reason why we decided to do these instances of feature engineering was to group our data. We noticed that our data in many of these columns were very spread out and unique, which may be causing issues for our decision tree model when it comes to classifying specific classes.
 
 Creating quantiles helps with giving data class at the extremes and the middle the same number ovalues. this qual representation may be beneficial for the model to learn the patterns associated with the class and can help give better ways for the decision tree to split.
@@ -133,13 +135,12 @@ The hyperparameters we got from GridSearchCV (grid search cross validation with 
 
 This new model with new hyperparameters and features resuled in a F1-score performance of 0.6372507104664724. This is a significant improvement from our baseline model, which was 0.5875980924470244. This means that our model improved in its precision and recall (specificity and sensitivity), but not but too much of significant amount to be truly reliable just yet. 
 
-*Optional: Include a visualization that describes your model’s performance, e.g. a confusion matrix, if applicable.*
 
 <div class="table-wrapper" markdown="block">
 
 
-| Predicted                        |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |  equipment failure |
-|:------------------------------|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|--------------------------------:|
+| Predicted                        |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
+|:------------------------------|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
 |**Actual**                                                                                                      |
 | fuel supply emergency         |                       9 |                    4 |           0 |               0 |               23 |                               1 |
 | intentional attack            |                       1 |                  270 |           2 |               4 |               42 |                               3 |
@@ -152,7 +153,7 @@ This new model with new hyperparameters and features resuled in a F1-score perfo
 
 </div>
 
-*Class imbalance not as significant here but still present. One category of cause not being predicted(`equipment failure`)
+In addition to having a higher F1 score, the effects of class imbalance are not as significant here compared to the baseline model, but still present. One category of cause was not predicted for this particular test sample(`equipment failure`)
 
 ## Fairness Analysis
 

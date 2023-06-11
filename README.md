@@ -115,6 +115,26 @@ This new model with new hyperparameters and features resuled in a F1-score perfo
 
 ## Fairness Analysis
 
+We decided to analyze the fairness of our model in regards to the columns `POPPCT_URBAN`, which is the percentage of the population that is urban for the location of an outage. Looking at the distribution of percentages, there was a clear divide between a urban population percentage of ~70%, so we binarized it accordingly.
+
+As a measure of fairness, we decided to use the absolute difference in F1 scores, since our data contained a lot of class imbalance, as mentioned before.
+
+With this information, our hypotheses are as follows:
+
+**Null Hypothesis:** Our model is fair and its F1 score for outages that occured
+in populations that are less than 70% urban and populations that are
+greater than or equal to 70% are roughly the same, and any differences are 
+due to random chance with a significance level of 0.05.
+
+**Alternative Hypothesis:** Our model is unfair and the F1 scores are different 
+between populations that are less than 70% urban and populations that are
+greater than or equal to 70% are roughly the same, and any differences are NOT 
+due to random chance with a significance level of 0.05
+
+After running the permutation test, we get a p-value of 0.573, so we fail to reject the null hypothesis that our model is fair between populations that are less than 70% urban and populations that are greater than or equal to 70% urban.
+
+<iframe src="html_files/fair_perm_test.html" width=800 height=600 frameBorder=0></iframe>
+
 *Clearly state your choice of Group X and Group Y, your evaluation metric, your null and alternative hypotheses, your choice of test statistic and significance level, the resulting p-value, and your conclusion.*
 
 *Optional: Embed a visualization related to your permutation test in your website.*

@@ -9,6 +9,10 @@
 # Power Outage Cause Classifier
 *Authors: Garvey Li, Penny King*
 
+
+Our exploratory data analysis project can be found [here](https://garveyjli.github.io/power_outage_data_exploration/)
+
+
 ## Introduction
 
 Our project focuses on predicting the cause of a power outage. Sometimes power outages may occur due to unexpected reasons and the cause for it would be unclear. Our project aims to build a classiifer using information that is available shortly after a power outage. This classification model may be useful to possibly figure out why a specific area is getting power outages when they are unaware of why they are happening and to mitigate that issue and prevent future outages from happening in the future.
@@ -50,7 +54,7 @@ Our initial baseline model we created was a Decision Tree Classifier with the qu
 * `CLIMATE.REGION` (nominal)
 
 
-All qualtitative variables we One Hot Encoded before putting into our model.
+All qualitative variables were One Hot Encoded before putting into our model.
 
 
 and the quantitative data we used was:
@@ -91,6 +95,9 @@ Below is the confusion matrix comparing the predicted class from our model and t
 
 </div>
 
+
+
+
 We split our data into training and test set data to avoid overfit and also using a model’s performance on a test set is a good estimate of its ability to generalize to unseen data. When splitting we shuffled the data and used 25% of our data for testing and the rest of the 75% for training. This training and testing data will be used to fit and test both our baseline model and our finalized model.
 
 The performance of our model on our test data was an F1-score of 0.5875980924470244. This is not very high, as values closer to 1.0 mean a better F1-score. Having an F1-score over 0.5 and closer to 0.7 would be a better F1-score metric. This lower F1-score means that our model does not have a high precision or recall rate. This means that our model is not accurate in predicting true positive predictions and is not generally specific in its predictions. In addition to this, the baseline model is not making any predictions of any other categories besides `fuel supply emergency`, `intentional attack`, and `severe weather`, meaning that only 3/7 classes are being predicted. This shows that the effects of the class imbalance present in the true data is significant here.
@@ -120,7 +127,7 @@ Qualitative variables:
 * `SEASON` (nominal)
   
 
-All qualtitative variables we One Hot Encoded before putting into our model, as before in the baseline model.
+All qualitative variables we One Hot Encoded before putting into our model, as before in the baseline model.
 
 Quantitative data we used was:
 * `OUTAGE.DURATION`
@@ -174,6 +181,8 @@ Below is the confusion matrix comparing the predicted class from our model and t
 
 
 </div>
+
+
 
 In addition to having a higher F1 score, the effects of class imbalance are not as significant here compared to the baseline model, but still present. Only one category of cause was not predicted for this particular test sample(`equipment failure`)
 

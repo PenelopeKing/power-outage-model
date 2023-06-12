@@ -181,7 +181,7 @@ In addition to having a higher F1 score, the effects of class imbalance are not 
 
 We decided to analyze the fairness of our model in regards to the columns `POPPCT_URBAN`, which is the percentage of the population that is urban for the U.S. State in which the outage occurred. Looking at the distribution of percentages, there was a clear divide between a urban population percentage of ~70%, so we binarized it accordingly.
 
-As a measure of fairness, we decided to use the absolute difference in F1 scores, since our data contained a lot of class imbalance, as mentioned before.
+As a measure of fairness, we decided to use the absolute difference in F1 scores, since our data contained a lot of class imbalance, as mentioned before. The observed test statistic is the actual absolute difference between F1 scores of >=70% and <70% urban population. We conducted a permutation test using absolute difference in F1 scores as our test statistic.
 
 With this information, our hypotheses are as follows:
 

@@ -21,7 +21,7 @@ For our evaluation metric we used F1-score because our response variable,  `CAUS
 
 Due to this imbalance in our data we decided that F1-score was a better choice over other metric such as accuracy because of how it balances precision and recall.
 
-We trained out model using the following features:
+We trained our model using the following features:
 * `U.S._STATE`
 * `CLIMATE.CATEGORY`
 * `MONTH`
@@ -48,6 +48,8 @@ Our initial baseline model we created was a Decision Tree Classifier with the qu
 * `MONTH` (ordinal)
 * `NERC.REGION` (nominal)
 * `CLIMATE.REGION` (nominal)
+
+
 All qualtitative variables we One Hot Encoded before putting into our model.
 
 
@@ -69,6 +71,9 @@ The hyperparameters we got from GridSearchCV (grid search cross validation with 
 * `min_samples_split`: 200
 
 
+Below is the confusion matrix comparing the predicted class from our model and the actual class:
+
+
 <div class="table-wrapper" markdown="block">
 
 
@@ -86,14 +91,23 @@ The hyperparameters we got from GridSearchCV (grid search cross validation with 
 
 </div>
 
-*(!) MAY NEED TO ADD MORE! project says many ppl lose points here*
+We split our data into training and test set data to avoid overfit and also using a model’s performance on a test set is a good estimate of its ability to generalize to unseen data. When splitting we shuffled the data and used 25% of our data for testing and the rest of the 75% for training. This training and testing data will be used to fit and test both our baseline model and our finalized model.
 
 The performance of our model on our test data was an F1-score of 0.5875980924470244. This is not very high, as values closer to 1.0 mean a better F1-score. Having an F1-score over 0.5 and closer to 0.7 would be a better F1-score metric. This lower F1-score means that our model does not have a high precision or recall rate. This means that our model is not accurate in predicting true positive predictions and is not generally specific in its predictions. In addition to this, the baseline model is not making any predictions of any other categories besides `fuel supply emergency`, `intentional attack`, and `severe weather`, meaning that only 3/7 classes are being predicted. This shows that the effects of the class imbalance present in the true data is significant here.
 
 
-## Final Model
+Bias and variance is a good weay to see how our model generalizes to unseen data:
 
-*State the features you added and why they are good for the data and prediction task. Note that you can’t simply state “these features improved my accuracy”, since you’d need to choose these features and fit a model before noticing that – instead, talk about why you believe these features improved your model’s performance from the perspective of the data generating process.*
+
+The low F1-score indicates high deviation between predicted value and the actual value of the data. This may be a sign of underfit as the model is too basic. Looking at the hyperparameters, this may be due to `max_depth` = 3.
+
+
+We performed 5-Fold train-test splitting and 5 times we trained our data and then tested it to find its f1_score on unique splits of data. This was how well the model perfromed after being fitted to testing data using different training data: [0.660127868111488, 0.5358888521716642, 0.5146355732018947, 0.6378973814389326, 0.537039896225877]. There seems to be a bit of deviation between predictions, which may be a sign of high variance. High variance can be due to the model overfitting to the training data. 
+
+
+
+
+## Final Model
 
 In our final model the features we included were:
 
@@ -105,6 +119,7 @@ Qualitative variables:
 * `CLIMATE.REGION` (nominal)
 * `SEASON` (nominal)
   
+
 All qualtitative variables we One Hot Encoded before putting into our model, as before in the baseline model.
 
 Quantitative data we used was:
@@ -130,6 +145,17 @@ The hyperparameters we got from GridSearchCV (grid search cross validation with 
 * `min_samples_split`: 50
 
 This new model with new hyperparameters and features resuled in a F1-score performance of 0.6372507104664724. This is a significant improvement from our baseline model, which was 0.5875980924470244. This means that our model improved in its precision and recall (specificity and sensitivity), but not but too much of significant amount to be truly reliable just yet. 
+
+
+Once again we look at the model's bias and variance to see how well it generalizes to unseen data:
+
+
+The model has a higher F1-score now, meaning that the deviation between predicted and actual response variable is lower, meaning that the bias of the model decreased. This means the model is not underfitting as much. This makes sense given that after GridSearchCV our `max_depth` hyperparameter was 7. 
+
+We performed 5-Fold train-test splitting and fit the model 5 times and tested it 5 times to see how the model varied in its F1-scores. This was how well the model perfromed after being fitted to testing data using different training data: [0.660127868111488, 0.5358888521716642, 0.5146355732018947, 0.6471442454979972, 0.537039896225877]. There seems to be a bit of deviation between predictions, which may be a sign of high variance. High variance can be due to the model overfitting to the training data. 
+
+
+Below is the confusion matrix comparing the predicted class from our model and the actual class:
 
 
 <div class="table-wrapper" markdown="block">

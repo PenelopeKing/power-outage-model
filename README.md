@@ -9,6 +9,10 @@
 # Power Outage Cause Classifier
 *Authors: Garvey Li, Penny King*
 
+
+Our exploratory data analysis project can be found [here](https://garveyjli.github.io/power_outage_data_exploration/).
+
+
 ## Introduction
 
 Our project focuses on predicting the cause of a power outage. Sometimes power outages may occur due to unexpected reasons and the cause for it would be unclear. Our project aims to build a classiifer using information that is available shortly after a power outage. This classification model may be useful to possibly figure out why a specific area is getting power outages when they are unaware of why they are happening and to mitigate that issue and prevent future outages from happening in the future.
@@ -50,7 +54,7 @@ Our initial baseline model we created was a Decision Tree Classifier with the qu
 * `CLIMATE.REGION` (nominal)
 
 
-All qualtitative variables we One Hot Encoded before putting into our model.
+All qualitative variables were One Hot Encoded before putting into our model.
 
 
 and the quantitative data we used was:
@@ -91,6 +95,9 @@ Below is the confusion matrix comparing the predicted class from our model and t
 
 </div>
 
+
+
+
 We split our data into training and test set data to avoid overfit and also using a model’s performance on a test set is a good estimate of its ability to generalize to unseen data. When splitting we shuffled the data and used 25% of our data for testing and the rest of the 75% for training. This training and testing data will be used to fit and test both our baseline model and our finalized model.
 
 The performance of our model on our test data was an F1-score of 0.5875980924470244. This is not very high, as values closer to 1.0 mean a better F1-score. Having an F1-score over 0.5 and closer to 0.7 would be a better F1-score metric. This lower F1-score means that our model does not have a high precision or recall rate. This means that our model is not accurate in predicting true positive predictions and is not generally specific in its predictions. In addition to this, the baseline model is not making any predictions of any other categories besides `fuel supply emergency`, `intentional attack`, and `severe weather`, meaning that only 3/7 classes are being predicted. This shows that the effects of the class imbalance present in the true data is significant here.
@@ -120,7 +127,7 @@ Qualitative variables:
 * `SEASON` (nominal)
   
 
-All qualtitative variables we One Hot Encoded before putting into our model, as before in the baseline model.
+All qualitative variables we One Hot Encoded before putting into our model, as before in the baseline model.
 
 Quantitative data we used was:
 * `OUTAGE.DURATION`
@@ -144,7 +151,7 @@ The hyperparameters we got from GridSearchCV (grid search cross validation with 
 * `max_depth`: 7
 * `min_samples_split`: 50
 
-This new model with new hyperparameters and features resuled in a F1-score performance of 0.6372507104664724. This is a significant improvement from our baseline model, which was 0.5875980924470244. This means that our model improved in its precision and recall (specificity and sensitivity), but not but too much of significant amount to be truly reliable just yet. 
+This new model with new hyperparameters and features resuled in a F1-score performance of 0.6372507104664724. This is a significant improvement from our baseline model, which was 0.5875980924470244. This means that our model improved in its precision and recall (specificity and sensitivity), but not too much of significant amount to be truly reliable just yet. 
 
 
 Once again we look at the model's bias and variance to see how well it generalizes to unseen data:
@@ -175,13 +182,15 @@ Below is the confusion matrix comparing the predicted class from our model and t
 
 </div>
 
+
+
 In addition to having a higher F1 score, the effects of class imbalance are not as significant here compared to the baseline model, but still present. Only one category of cause was not predicted for this particular test sample(`equipment failure`)
 
 ## Fairness Analysis
 
 We decided to analyze the fairness of our model in regards to the columns `POPPCT_URBAN`, which is the percentage of the population that is urban for the U.S. State in which the outage occurred. Looking at the distribution of percentages, there was a clear divide between a urban population percentage of ~70%, so we binarized it accordingly.
 
-As a measure of fairness, we decided to use the absolute difference in F1 scores, since our data contained a lot of class imbalance, as mentioned before. Our observed statistic was 0.04259.
+As a measure of fairness, we decided to use the absolute difference in F1 scores, since our data contained a lot of class imbalance, as mentioned before. The observed test statistic is the actual absolute difference between F1 scores of >=70% and <70% urban population, with a value of 0.04259. We conducted a permutation test using absolute difference in F1 scores as our test statistic.
 
 With this information, our hypotheses are as follows:
 
@@ -193,7 +202,7 @@ due to random chance with a significance level of 0.05.
 
 After running the permutation test with an observed statistic of 0.04259, we get a p-value of 0.58208, so we fail to reject the null hypothesis that our model is fair between populations that are less than 70% urban and populations that are greater than or equal to 70% urban.
 
-<iframe src="html_files/fair_perm_test.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="html_files/fair_perm_test_3.html" width=800 height=600 frameBorder=0></iframe>
 
 
 

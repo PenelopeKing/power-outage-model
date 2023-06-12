@@ -119,13 +119,9 @@ Quantitative data we used was:
 * `PCT_WATER_INLAND`
 
 
-We feature engineered a new column `SEASON` which we got from the `MONTH` column in our DataFrame. We believed that there may have been some correlation between the distributions of seasons with more/less extreme weather and the distribution of outage causes for each season. For example, in the winter, there might be more strong storms and winds that can cause power outages as opposed to fall and spring, when the weather is more mild in comparison. Thus, during winter, there might be a higher probability of a power outage being caused by `severe weather` as opposed to `intentional attack`.
+We feature engineered a new column `SEASON` which we got from the `MONTH` column in our DataFrame. We believed that there may have been some correlations between the seasons and the distribution of outage causes for each season. For example, in the winter, there might be more strong storms and winds that can cause power outages as opposed to fall and spring, when the weather is more mild in comparison. Thus, there might be a higher probability of a power outage being caused by `severe weather` during winter as opposed to the fall or spring. So, grouping by seasons would help with splitting within the decision tree classifier.
 
-We also created quantiles for all our quantitaive data. The reason why we decided to do these instances of feature engineering was to group our data. We noticed that our data in many of these columns were very spread out and unique, which may be causing issues for our decision tree model when it comes to classifying specific classes.
-
-Creating quantiles helps with giving data class at the extremes and the middle the same number ovalues. this qual representation may be beneficial for the model to learn the patterns associated with the class and can help give better ways for the decision tree to split.
-
-Grouping by seasons also helps with splitting within the decision tree classifier.
+We also created quantiles for all our quantitative data. The reason why we decided to do these instances of feature engineering was to group our data. We noticed that our data in many of these columns were very spread out and unique(high variance), which may be causing issues for our decision tree model when it comes to classifying specific classes. This representation may be beneficial for the model to learn the patterns associated with the class and can help give better ways for the decision tree to split.
 
 We decided to find the optimal hyperparameters for our model using 5-fold grid search cross validation from `sklearn` package within our modeling Pipeline.
 The hyperparameters we got from GridSearchCV (grid search cross validation with 5 folds) for our final Decision Tree Classifier was:
@@ -153,35 +149,25 @@ This new model with new hyperparameters and features resuled in a F1-score perfo
 
 </div>
 
-In addition to having a higher F1 score, the effects of class imbalance are not as significant here compared to the baseline model, but still present. One category of cause was not predicted for this particular test sample(`equipment failure`)
+In addition to having a higher F1 score, the effects of class imbalance are not as significant here compared to the baseline model, but still present. Only one category of cause was not predicted for this particular test sample(`equipment failure`)
 
 ## Fairness Analysis
 
-We decided to analyze the fairness of our model in regards to the columns `POPPCT_URBAN`, which is the percentage of the population that is urban for the location of an outage. Looking at the distribution of percentages, there was a clear divide between a urban population percentage of ~70%, so we binarized it accordingly.
+We decided to analyze the fairness of our model in regards to the columns `POPPCT_URBAN`, which is the percentage of the population that is urban for the U.S. State in which the outage occurred. Looking at the distribution of percentages, there was a clear divide between a urban population percentage of ~70%, so we binarized it accordingly.
 
 As a measure of fairness, we decided to use the absolute difference in F1 scores, since our data contained a lot of class imbalance, as mentioned before.
 
 With this information, our hypotheses are as follows:
 
-**Null Hypothesis:** Our model is fair and its F1 score for outages that occured
-in populations that are less than 70% urban and populations that are
+**Null Hypothesis:** Our model is fair and its F1 score for outages that occured in populations that are less than 70% urban and populations that are
 greater than or equal to 70% are roughly the same, and any differences are 
 due to random chance with a significance level of 0.05.
 
-**Alternative Hypothesis:** Our model is unfair and the F1 scores are different 
-between populations that are less than 70% urban and populations that are
-greater than or equal to 70% are roughly the same, and any differences are NOT 
-due to random chance with a significance level of 0.05
+**Alternative Hypothesis:** Our model is unfair and the F1 scores are different between populations that are less than 70% urban and populations that are greater than or equal to 70% are roughly the same, and any differences are NOT due to random chance with a significance level of 0.05
 
 After running the permutation test, we get a p-value of 0.573, so we fail to reject the null hypothesis that our model is fair between populations that are less than 70% urban and populations that are greater than or equal to 70% urban.
 
 <iframe src="html_files/fair_perm_test.html" width=800 height=600 frameBorder=0></iframe>
-
-*Clearly state your choice of Group X and Group Y, your evaluation metric, your null and alternative hypotheses, your choice of test statistic and significance level, the resulting p-value, and your conclusion.*
-
-*Optional: Embed a visualization related to your permutation test in your website.*
-
-*Tip: When making writing your conclusions to the statistical tests in this project, never use language that implies an absolute conclusion; since we are performing statistical tests and not randomized controlled trials, we cannot prove that either hypothesis is 100% true or false.*
 
 
 

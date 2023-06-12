@@ -144,7 +144,7 @@ The hyperparameters we got from GridSearchCV (grid search cross validation with 
 * `max_depth`: 7
 * `min_samples_split`: 50
 
-This new model with new hyperparameters and features resuled in a F1-score performance of 0.6372507104664724. This is a significant improvement from our baseline model, which was 0.5875980924470244. This means that our model improved in its precision and recall (specificity and sensitivity), but not but too much of significant amount to be truly reliable just yet. 
+This new model with new hyperparameters and features resuled in a F1-score performance of 0.6372507104664724. This is a significant improvement from our baseline model, which was 0.5875980924470244. This means that our model improved in its precision and recall (specificity and sensitivity), but not too much of significant amount to be truly reliable just yet. 
 
 
 Once again we look at the model's bias and variance to see how well it generalizes to unseen data:

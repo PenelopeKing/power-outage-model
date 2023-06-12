@@ -202,7 +202,7 @@ due to random chance with a significance level of 0.05.
 
 After running the permutation test, we get a p-value of 0.573, so we fail to reject the null hypothesis that our model is fair between populations that are less than 70% urban and populations that are greater than or equal to 70% urban.
 
-<iframe src="html_files/fair_perm_test_2.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="html_files/fair_perm_test_3.html" width=800 height=600 frameBorder=0></iframe>
 
 
 

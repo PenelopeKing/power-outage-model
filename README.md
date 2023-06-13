@@ -13,7 +13,7 @@
 Our exploratory data analysis project can be found [here](https://garveyjli.github.io/power_outage_data_exploration/).
 
 
-## Introduction
+## Framing the Problem
 
 Our project focuses on predicting the cause of a power outage. Sometimes power outages may occur due to unexpected reasons and the cause for it would be unclear. Our project aims to build a classiifer using information that is available shortly after a power outage. This classification model may be useful to possibly figure out why a specific area is getting power outages when they are unaware of why they are happening and to mitigate that issue and prevent future outages from happening in the future.
 
